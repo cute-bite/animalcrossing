@@ -9,28 +9,25 @@
   <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
   <!-- AdSense (YOUR-ADSENSE-CLIENT-ID/Slot 교체) -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-ADSENSE-CLIENT-ID" crossorigin="anonymous"></script>
+
+  
 </head>
 <body>
 <header class="site-header">
-  <div class="container row between center">
-    <a class="brand" href="{{ '/' | relative_url }}">
-      <img class="logo" alt="ACNH Leaf" src="{{ '/assets/img/leaf.svg' | relative_url }}" width="28" height="28"/>
+  <div class="container">
+    <a href="{{ site.baseurl }}/" class="brand">
+      <img src="{{ site.baseurl }}/assets/img/leaf.svg" alt="" />
       <span>{{ site.title }}</span>
     </a>
     <nav class="site-nav">
-      <a href="{{ '/' | relative_url }}">Home</a>
-      <a href="{{ '/guide/' | relative_url }}">가이드</a>
-      <a href="{{ '/items/' | relative_url }}">도감</a>
-      <a href="{{ '/events/' | relative_url }}">이벤트</a>
-      <a href="{{ '/search.html' | relative_url }}">검색</a>
-      <button id="themeToggle" class="chip" aria-label="테마 토글">🌙</button>
+      <a href="{{ site.baseurl }}/guide/">가이드</a>
+      <a href="{{ site.baseurl }}/items/">도감</a>
+      <a href="{{ site.baseurl }}/events/">이벤트</a>
+      <a href="{{ site.baseurl }}/search.html">검색</a>
     </nav>
   </div>
-  <div class="ad ad-top">
-    <ins class="adsbygoogle" style="display:block" data-ad-client="YOUR-ADSENSE-CLIENT-ID" data-ad-slot="TOP-BANNER-SLOT" data-ad-format="auto" data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-  </div>
 </header>
+
 
 <div class="container grid">
   <aside class="sidebar">
