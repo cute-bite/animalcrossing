@@ -140,36 +140,38 @@
         <button id="drawerClose" class="icon-btn" aria-label="메뉴 닫기">✕</button>
       </div>
 
-      <div class="accordion">
-        {% assign groups = "
-          기본|/|메인 페이지,/contents/|목차,/random/|임의 문서,/random-item/|임의 아이템,/recent-changes/|최근 변경,/api/|API,/policy/|정책,/help/|도움말;
-          게임|/new-horizons/|뉴 호라이즌,/updates/|업데이트,/happy-home-paradise/|해피 홈 파라다이스,/mystery-islands/|미스터리 섬,/boat-tours/|보트 투어,/nook-miles/|너크 마일,/the-roost/|비둘기 다방;
-          주민/생물|/villagers/|주민,/fish/|물고기,/bugs/|곤충,/sea-creatures/|해산물,/fossils/|화석,/art/|미술품/위작,/gyroids/|자로이드;
-          아이템|/furniture/|가구,/wallpaper/|벽지,/flooring/|바닥재,/clothing/|의류,/tools/|도구,/music/|음악,/recipes/|DIY/요리 레시피;
-          커뮤니티|/staff-noticeboard/|스태프 공지판,/proposals/|제안,/users/|사용자 & 스태프;
-          유지보수|/tasks-board/|작업 보드,/maintenance/|위키 유지보수,/image-requests/|이미지 요청,/images-needed/|필요 이미지,/under-construction/|공사중,/cleanup/|정리 필요,/stubs/|토막글;
-          도구|/what-links-here/|여기를 가리키는 문서,/related-changes/|연관 변경,/printable/|인쇄용 버전,/permanent-link/|고유 링크,/page-info/|문서 정보,/page-logs/|문서 로그
-        " | split: ";" %}
+<div class="accordion">
+  {% capture groups_raw %}
+기본|/|메인 페이지,/contents/|목차,/random/|임의 문서,/random-item/|임의 아이템,/recent-changes/|최근 변경,/api/|API,/policy/|정책,/help/|도움말;
+게임|/new-horizons/|뉴 호라이즌,/updates/|업데이트,/happy-home-paradise/|해피 홈 파라다이스,/mystery-islands/|미스터리 섬,/boat-tours/|보트 투어,/nook-miles/|너크 마일,/the-roost/|비둘기 다방;
+주민/생물|/villagers/|주민,/fish/|물고기,/bugs/|곤충,/sea-creatures/|해산물,/fossils/|화석,/art/|미술품/위작,/gyroids/|자로이드;
+아이템|/furniture/|가구,/wallpaper/|벽지,/flooring/|바닥재,/clothing/|의류,/tools/|도구,/music/|음악,/recipes/|DIY/요리 레시피;
+커뮤니티|/staff-noticeboard/|스태프 공지판,/proposals/|제안,/users/|사용자 & 스태프;
+유지보수|/tasks-board/|작업 보드,/maintenance/|위키 유지보수,/image-requests/|이미지 요청,/images-needed/|필요 이미지,/under-construction/|공사중,/cleanup/|정리 필요,/stubs/|토막글;
+도구|/what-links-here/|여기를 가리키는 문서,/related-changes/|연관 변경,/printable/|인쇄용 버전,/permanent-link/|고유 링크,/page-info/|문서 정보,/page-logs/|문서 로그
+  {% endcapture %}
+  {% assign groups = groups_raw | strip | split: ";" %}
 
-        {% for grp in groups %}
-          {% assign parts = grp | split: "|" %}
-          {% assign title = parts[0] | strip %}
-          {% assign links = parts[1] | split: "," %}
-          <details class="acc">
-            <summary class="acc__summary">{{ title }}</summary>
-            <ul class="acc__list">
-              {% for l in links %}
-                {% assign pair = l | split: "|" %}
-                {% assign href = pair[0] | strip %}
-                {% assign label = pair[1] | strip %}
-                {% if href != "" and label != "" %}
-                  <li><a href="{{ site.baseurl }}{{ href }}">{{ label }}</a></li>
-                {% endif %}
-              {% endfor %}
-            </ul>
-          </details>
+  {% for grp in groups %}
+    {% assign parts = grp | split: "|" %}
+    {% assign title = parts[0] | strip %}
+    {% assign links = parts[1] | split: "," %}
+    <details class="acc">
+      <summary class="acc__summary">{{ title }}</summary>
+      <ul class="acc__list">
+        {% for l in links %}
+          {% assign pair = l | split: "|" %}
+          {% assign href = pair[0] | strip %}
+          {% assign label = pair[1] | strip %}
+          {% if href and label %}
+            <li><a href="{{ site.baseurl }}{{ href }}">{{ label }}</a></li>
+          {% endif %}
         {% endfor %}
-      </div>
+      </ul>
+    </details>
+  {% endfor %}
+</div>
+
 
       <button id="closeAll" class="btn ghost" type="button" style="margin-top:10px;">모두 닫기</button>
     </div>
