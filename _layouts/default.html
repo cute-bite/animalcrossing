@@ -7,11 +7,12 @@
   <meta name="description" content="{{ page.description | default: site.description }}" />
   <link rel="icon" href="{{ '/assets/img/leaf.svg' | relative_url }}" type="image/svg+xml" />
   <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}" />
+  <!-- AdSense: 값 교체 필요 -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-ADSENSE-CLIENT-ID" crossorigin="anonymous"></script>
 </head>
 <body>
 
-  <!-- 상단 헤더(로고 + 소셜) -->
+  <!-- 상단 헤더(로고/소셜 + 모바일 햄버거) -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="{{ site.baseurl }}/" class="brand">
@@ -19,21 +20,21 @@
         <span>{{ site.title }}</span>
       </a>
 
-      <!-- 데스크톱 소셜 -->
-      <nav class="social-nav">
+      <nav class="social-nav" aria-label="소셜 링크">
         <a href="https://discord.gg/" target="_blank" rel="noopener">Discord</a>
         <a href="https://twitter.com/" target="_blank" rel="noopener">Twitter</a>
         <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
         <a href="https://facebook.com/" target="_blank" rel="noopener">Facebook</a>
       </nav>
 
-      <!-- 모바일 햄버거 -->
-      <button id="menuBtn" class="icon-btn mobile-only" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileDrawer">☰</button>
+      <!-- 모바일 햄버거: 좌측 풀메뉴의 드로어를 연다 -->
+      <button id="menuBtn" class="icon-btn mobile-only"
+              aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileDrawer">☰</button>
     </div>
   </header>
 
+  <!-- 좌측 고정 사이드메뉴 + 본문 -->
   <div class="layout">
-    <!-- ✅ 좌측 풀메뉴(데스크톱에서 고정) -->
     <aside class="sidebar">
       <nav class="side-nav" aria-label="사이드 메뉴">
         <div class="group">
@@ -125,14 +126,13 @@
       </nav>
     </aside>
 
-    <!-- ✅ 본문 -->
     <main class="content">
       {{ content }}
       {% include attribution.html %}
     </main>
   </div>
 
-  <!-- ✅ 모바일 드로어(좌측 메뉴와 동일 항목, 아코디언) -->
+  <!-- 모바일 드로어(좌측 메뉴 요약본, 아코디언) -->
   <nav id="mobileDrawer" class="mobile-drawer" hidden aria-label="모바일 메뉴">
     <div class="mobile-drawer__inner">
       <div class="drawer-head">
@@ -140,7 +140,6 @@
         <button id="drawerClose" class="icon-btn" aria-label="메뉴 닫기">✕</button>
       </div>
 
-      <!-- 아코디언 섹션 -->
       <div class="accordion">
         {% assign groups = "
           기본|/|메인 페이지,/contents/|목차,/random/|임의 문서,/random-item/|임의 아이템,/recent-changes/|최근 변경,/api/|API,/policy/|정책,/help/|도움말;
@@ -164,7 +163,7 @@
                 {% assign href = pair[0] | strip %}
                 {% assign label = pair[1] | strip %}
                 {% if href != "" and label != "" %}
-                <li><a href="{{ site.baseurl }}{{ href }}">{{ label }}</a></li>
+                  <li><a href="{{ site.baseurl }}{{ href }}">{{ label }}</a></li>
                 {% endif %}
               {% endfor %}
             </ul>
