@@ -1,0 +1,27 @@
+---
+layout: default
+title: 검색
+---
+<h1>검색</h1>
+<input type="text" id="search-input" placeholder="검색어를 입력하세요…" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;">
+<ul id="results-container"></ul>
+<script>
+(function(){
+  function render(results){
+    var ul=document.getElementById('results-container'); ul.innerHTML='';
+    results.forEach(function(item){
+      var li=document.createElement('li'); li.innerHTML='<a href="'+item.url+'">'+item.title+'</a>'; ul.appendChild(li);
+    });
+  }
+  fetch('{{ '/search.json' | relative_url }}').then(r=>r.json()).then(function(index){
+    var input=document.getElementById('search-input');
+    input.addEventListener('input', function(){
+      var q=this.value.toLowerCase();
+      var results=index.filter(function(p){
+        return (p.title||'').toLowerCase().includes(q) || (p.content||'').toLowerCase().includes(q);
+      });
+      render(results.slice(0,50));
+    });
+  });
+})();
+</script>

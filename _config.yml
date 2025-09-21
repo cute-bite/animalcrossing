@@ -1,0 +1,17 @@
+title: ACNH Korean Fan Wiki
+description: 동물의 숲: 뉴 호라이즌 한국어 팬 위키 (텍스트 중심, CC BY-SA)
+baseurl: ""
+url: ""
+theme: minima
+markdown: kramdown
+kramdown:
+  input: GFM
+collections:
+  guide:
+    output: true
+  items:
+    output: true
+  events:
+    output: true
+permalink: /:collection/:name/
+# GitHub Pages가 제공하는 site.github.* 값을 사용 (repository_url 등)

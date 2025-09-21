@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="icon" href="{{ '/assets/img/leaf.svg' | relative_url }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+  <!-- AdSense (YOUR-ADSENSE-CLIENT-ID/Slot 교체) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-ADSENSE-CLIENT-ID" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container row between center">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <img class="logo" alt="ACNH Leaf" src="{{ '/assets/img/leaf.svg' | relative_url }}" width="28" height="28"/>
+      <span>{{ site.title }}</span>
+    </a>
+    <nav class="site-nav">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/guide/' | relative_url }}">가이드</a>
+      <a href="{{ '/items/' | relative_url }}">도감</a>
+      <a href="{{ '/events/' | relative_url }}">이벤트</a>
+      <a href="{{ '/search.html' | relative_url }}">검색</a>
+      <button id="themeToggle" class="chip" aria-label="테마 토글">🌙</button>
+    </nav>
+  </div>
+  <div class="ad ad-top">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="YOUR-ADSENSE-CLIENT-ID" data-ad-slot="TOP-BANNER-SLOT" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</header>
+
+<div class="container grid">
+  <aside class="sidebar">
+    <div class="box">
+      <strong>빠른 이동</strong>
+      <ul>
+        <li><a href="{{ '/guide/beginner/' | relative_url }}">초보자 가이드</a></li>
+        <li><a href="{{ '/items/fish/' | relative_url }}">물고기 도감</a></li>
+        <li><a href="{{ '/events/seasonal/' | relative_url }}">시즌 이벤트</a></li>
+      </ul>
+    </div>
+    <div class="box">
+      <strong>태그</strong>
+      <div class="chips">
+        <span class="chip">#초보자</span><span class="chip">#벨벌이</span><span class="chip">#도감</span><span class="chip">#이벤트</span>
+      </div>
+    </div>
+  </aside>
+  <main class="content">
+    <article class="doc">
+      <div class="editbar">
+        {% assign repo_url = site.github.repository_url | default: 'https://github.com/YOURNAME/YOURREPO' %}
+        <a class="btn" href="{{ repo_url }}/edit/main{{ page.path }}" target="_blank" rel="noopener">✏️ Edit on GitHub</a>
+        <a class="btn" href="{{ repo_url }}/issues/new?title=%5B%EA%B3%A0%EC%B0%A8%2F%EC%88%98%EC%A0%95%20%EC%A0%9C%EC%95%88%5D%20{{ page.title | uri_escape }}" target="_blank" rel="noopener">🐞 이슈 제보</a>
+      </div>
+      {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
+      <div id="toc" class="toc"></div>
+      {{ content }}
+      {% include attribution.html %}
+      <div class="ad ad-in-article">
+        <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="YOUR-ADSENSE-CLIENT-ID" data-ad-slot="IN-ARTICLE-SLOT"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+      <!-- giscus (Discussions 사용) — 아래 값들을 본인 저장소 값으로 교체 -->
+      <section id="comments" style="margin-top:24px;">
+        <script src="https://giscus.app/client.js"
+          data-repo="YOURNAME/YOURREPO"
+          data-repo-id="YOUR_REPO_ID"
+          data-category="General"
+          data-category-id="YOUR_CATEGORY_ID"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="light"
+          data-lang="ko"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </article>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <small>© {{ site.time | date: "%Y" }} · 텍스트는 CC BY-SA 4.0 · <a href="{{ '/privacy.html' | relative_url }}">Privacy</a> · <a href="{{ '/terms.html' | relative_url }}">Terms</a> · <a href="{{ '/contact.html' | relative_url }}">Contact</a></small>
+  </div>
+</footer>
+
+<script src="{{ '/assets/js/toc-and-theme.js' | relative_url }}"></script>
+</body>
+</html>
