@@ -9,33 +9,18 @@
   <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
   <!-- AdSense (YOUR-ADSENSE-CLIENT-ID/Slot 교체) -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-ADSENSE-CLIENT-ID" crossorigin="anonymous"></script>
-
-  
 </head>
 <body>
+
+<!-- ✅ 헤더: 1개만 유지 -->
 <header class="site-header">
   <div class="container">
     <a href="{{ site.baseurl }}/" class="brand">
       <img src="{{ site.baseurl }}/assets/img/leaf.svg" alt="" />
       <span>{{ site.title }}</span>
     </a>
-    <nav class="site-nav">
-      <a href="{{ site.baseurl }}/guide/">가이드</a>
-      <a href="{{ site.baseurl }}/items/">도감</a>
-      <a href="{{ site.baseurl }}/events/">이벤트</a>
-      <a href="{{ site.baseurl }}/search.html">검색</a>
-    </nav>
-  </div>
 
-
-  <header class="site-header">
-  <div class="container">
-    <a href="{{ site.baseurl }}/" class="brand">
-      <img src="{{ site.baseurl }}/assets/img/leaf.svg" alt="" />
-      <span>{{ site.title }}</span>
-    </a>
-
-    <!-- 데스크톱 내비 -->
+    <!-- 데스크톱 내비 (모바일에서는 CSS로 숨김) -->
     <nav class="site-nav">
       <a href="{{ site.baseurl }}/guide/">가이드</a>
       <a href="{{ site.baseurl }}/items/">도감</a>
@@ -46,8 +31,9 @@
     <!-- 모바일 햄버거 버튼 -->
     <button id="menuBtn" class="icon-btn mobile-only" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileDrawer">☰</button>
   </div>
+</header>
 
-<!-- 모바일 드로어 -->
+<!-- ✅ 모바일 드로어: 헤더 바깥에 1개 -->
 <nav id="mobileDrawer" class="mobile-drawer" hidden>
   <div class="mobile-drawer__inner">
     <a href="{{ site.baseurl }}/" class="mobile-drawer__brand">
@@ -64,10 +50,6 @@
     <a href="{{ site.baseurl }}/contact.html">문의</a>
   </div>
 </nav>
-
-
-</header>
-
 
 <div class="container grid">
   <aside class="sidebar">
@@ -86,6 +68,7 @@
       </div>
     </div>
   </aside>
+
   <main class="content">
     <article class="doc">
       <div class="editbar">
@@ -93,15 +76,20 @@
         <a class="btn" href="{{ repo_url }}/edit/main{{ page.path }}" target="_blank" rel="noopener">✏️ Edit on GitHub</a>
         <a class="btn" href="{{ repo_url }}/issues/new?title=%5B%EA%B3%A0%EC%B0%A8%2F%EC%88%98%EC%A0%95%20%EC%A0%9C%EC%95%88%5D%20{{ page.title | uri_escape }}" target="_blank" rel="noopener">🐞 이슈 제보</a>
       </div>
+
       {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
       <div id="toc" class="toc"></div>
+
       {{ content }}
+
       {% include attribution.html %}
+
       <div class="ad ad-in-article">
         <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="YOUR-ADSENSE-CLIENT-ID" data-ad-slot="IN-ARTICLE-SLOT"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       </div>
-      <!-- giscus (Discussions 사용) — 아래 값들을 본인 저장소 값으로 교체 -->
+
+      <!-- giscus (값 교체 필요) -->
       <section id="comments" style="margin-top:24px;">
         <script src="https://giscus.app/client.js"
           data-repo="YOURNAME/YOURREPO"
@@ -125,7 +113,11 @@
 
 <footer class="site-footer">
   <div class="container">
-    <small>© {{ site.time | date: "%Y" }} · 텍스트는 CC BY-SA 4.0 · <a href="{{ '/privacy.html' | relative_url }}">Privacy</a> · <a href="{{ '/terms.html' | relative_url }}">Terms</a> · <a href="{{ '/contact.html' | relative_url }}">Contact</a></small>
+    <small>© {{ site.time | date: "%Y" }} · 텍스트는 CC BY-SA 4.0 ·
+      <a href="{{ '/privacy.html' | relative_url }}">Privacy</a> ·
+      <a href="{{ '/terms.html' | relative_url }}">Terms</a> ·
+      <a href="{{ '/contact.html' | relative_url }}">Contact</a>
+    </small>
   </div>
 </footer>
 
