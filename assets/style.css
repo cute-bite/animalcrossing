@@ -1,274 +1,55 @@
-/*
-  Animal Crossing KR Wiki — base theme (v1)
-  - Light/Dark (auto via prefers-color-scheme, overridden by [data-theme])
-  - Responsive layout, sticky header, content width, better tables
-  - Chip links, cards, callouts, buttons, search, footer
-  - Non-invasive: class names match existing structure from default.html hints
-  - Ad container styling (non-intrusive, no size forcing)
-*/
+/* === 좌측 레이아웃 === */
+.layout { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 64px); }
+.header-inner { display:flex; align-items:center; gap:12px; }
+.social-nav { margin-left:auto; display:flex; gap:10px; }
+.social-nav a { color: var(--muted); padding: 6px 8px; border-radius: 8px; }
+.social-nav a:hover { background: var(--surface); text-decoration:none; }
 
-/* --------------------------------------------------
-   CSS Variables (colors, spacing, radius)
--------------------------------------------------- */
-:root {
-  --bg: #ffffff;
-  --fg: #15171a;
-  --muted: #5b6472;
-  --border: #e6e8ec;
-  --accent: #2aa06a; /* leaf-y green */
-  --accent-2: #0b8fdb; /* blue for links on hover/focus */
-  --surface: #fafbfc;
-  --chip-bg: #f2f7f4;
-  --code-bg: #f6f8fa;
-  --kbd-bg: #eef0f3;
-  --shadow: 0 1px 2px rgba(0,0,0,.05), 0 6px 18px rgba(0,0,0,.06);
-  --radius: 14px;
-  --radius-sm: 10px;
-  --radius-xs: 8px;
-  --container: 1080px;
+.sidebar {
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  padding: 16px 14px;
+  position: sticky; top: 64px; height: calc(100vh - 64px);
+  overflow: auto;
+}
+.side-nav .group + .group { margin-top: 14px; }
+.side-nav h4 { margin: 8px 0 6px; font-size: .88rem; color: var(--muted); }
+.side-nav ul { list-style:none; margin:0; padding:0; }
+.side-nav li { margin: 2px 0; }
+.side-nav a { display:block; padding:6px 8px; border-radius:8px; color:var(--fg); }
+.side-nav a:hover { background: var(--chip-bg); text-decoration:none; }
+
+.content { padding: 20px; }
+
+/* 모바일: 좌측 메뉴 숨기고 드로어 사용 */
+@media (max-width: 980px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display:none; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f1115;
-    --fg: #e6eaf0;
-    --muted: #9aa3af;
-    --border: #242a32;
-    --accent: #4fd08a;
-    --accent-2: #5ab8ff;
-    --surface: #161a20;
-    --chip-bg: #17211b;
-    --code-bg: #151a20;
-    --kbd-bg: #202634;
-    --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 24px rgba(0,0,0,.35);
-  }
-}
-
-/* Hard override by JS: html[data-theme="light"|"dark"] */
-html[data-theme="light"] {
-  --bg: #ffffff;
-  --fg: #15171a;
-  --muted: #5b6472;
-  --border: #e6e8ec;
-  --accent: #2aa06a;
-  --accent-2: #0b8fdb;
-  --surface: #fafbfc;
-  --chip-bg: #f2f7f4;
-  --code-bg: #f6f8fa;
-  --kbd-bg: #eef0f3;
-}
-html[data-theme="dark"] {
-  --bg: #0f1115;
-  --fg: #e6eaf0;
-  --muted: #9aa3af;
-  --border: #242a32;
-  --accent: #4fd08a;
-  --accent-2: #5ab8ff;
-  --surface: #161a20;
-  --chip-bg: #17211b;
-  --code-bg: #151a20;
-  --kbd-bg: #202634;
-}
-
-/* --------------------------------------------------
-   Base
--------------------------------------------------- */
-* { box-sizing: border-box; }
-html, body { height: 100%; }
-body {
-  margin: 0; background: var(--bg); color: var(--fg);
-  font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Apple SD Gothic Neo, Malgun Gothic, "나눔고딕", Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
-}
-img { max-width: 100%; height: auto; }
-a { color: var(--accent-2); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-.container {
-  width: 100%; max-width: var(--container); margin: 0 auto; padding: 24px 20px;
-}
-
-/* --------------------------------------------------
-   Header / Nav
--------------------------------------------------- */
-.site-header {
-  position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(1.2) blur(6px);
-  background: color-mix(in oklab, var(--bg) 88%, transparent);
-  border-bottom: 1px solid var(--border);
-}
-.site-header .container { display: flex; align-items: center; gap: 16px; padding-top: 14px; padding-bottom: 14px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; color: var(--fg); }
-.brand img { width: 22px; height: 22px; filter: drop-shadow(0 1px 0 rgba(0,0,0,.04)); }
-
-.site-nav { margin-left: auto; display: flex; flex-wrap: wrap; gap: 10px; }
-.site-nav a {
-  display: inline-flex; align-items: center; padding: 8px 12px; border-radius: var(--radius-sm);
-  color: var(--fg); border: 1px solid transparent;
-}
-.site-nav a:hover { background: var(--surface); border-color: var(--border); text-decoration: none; }
-
-/* Optional: theme toggle / search button slots */
-.header-actions { display: flex; align-items: center; gap: 8px; margin-left: 6px; }
-.icon-btn { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); }
-.icon-btn:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
-
-/* Mobile nav */
-@media (max-width: 860px) {
-  .site-nav { display: none; }
-  .mobile-nav { display: flex; gap: 10px; }
-}
-
-/* --------------------------------------------------
-   Typography
--------------------------------------------------- */
-main h1 { font-size: 2rem; line-height: 1.2; margin: 14px 0 18px; letter-spacing: -0.01em; }
-main h2 { font-size: 1.5rem; margin: 28px 0 10px; }
-main h3 { font-size: 1.2rem; margin: 22px 0 8px; }
-
-p { margin: 0 0 12px; }
-.lead { font-size: 1.1rem; color: var(--muted); }
-small, .muted { color: var(--muted); }
-
-hr { border: 0; height: 1px; background: var(--border); margin: 24px 0; }
-
-/* --------------------------------------------------
-   Chips / Tags (home shortcuts)
--------------------------------------------------- */
-.chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 6px; }
-.chip {
-  display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px;
-  background: var(--chip-bg); border: 1px solid var(--border); color: var(--fg);
-}
-.chip:hover { filter: brightness(0.98); text-decoration: none; }
-
-/* --------------------------------------------------
-   Cards (for lists like guides/items)
--------------------------------------------------- */
-.cards { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
-.card { grid-column: span 4; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-.card:hover { transform: translateY(-1px); transition: transform .15s ease; }
-.card .pad { padding: 14px; }
-.card h3 { margin: 0 0 6px; font-size: 1.05rem; }
-.card p { margin: 0; color: var(--muted); }
-@media (max-width: 980px){ .card { grid-column: span 6; } }
-@media (max-width: 620px){ .card { grid-column: span 12; } }
-
-/* --------------------------------------------------
-   Tables (dex entries, schedules)
--------------------------------------------------- */
-.table-wrap { overflow: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-th, td { padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: left; }
-th { background: color-mix(in oklab, var(--surface) 92%, transparent); font-weight: 700; }
-tr:hover td { background: color-mix(in oklab, var(--surface) 85%, transparent); }
-
-/* Zebra alt for large tables */
-tbody tr:nth-child(2n) td { background: color-mix(in oklab, var(--surface) 95%, transparent); }
-
-/* Sort/Filter controls area */
-.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
-.input { height: 38px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); padding: 0 12px; }
-.select { height: 38px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg); padding: 0 10px; }
-
-/* --------------------------------------------------
-   Code / Pre / KBD (for tips)
--------------------------------------------------- */
-code, pre, kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
-pre { background: var(--code-bg); border: 1px solid var(--border); padding: 12px; border-radius: var(--radius); overflow: auto; }
-code { background: var(--code-bg); border: 1px solid var(--border); padding: 2px 6px; border-radius: 6px; }
-kbd { background: var(--kbd-bg); border: 1px solid var(--border); border-bottom-width: 3px; padding: 2px 6px; border-radius: 6px; }
-
-/* --------------------------------------------------
-   Callouts (tip/warn/info)
--------------------------------------------------- */
-.callout { border: 1px solid var(--border); border-left: 4px solid var(--accent); background: var(--surface); padding: 12px 14px; border-radius: var(--radius); }
-.callout.warn { border-left-color: #f39c12; }
-.callout.info { border-left-color: var(--accent-2); }
-
-/* --------------------------------------------------
-   Inline badges / labels
--------------------------------------------------- */
-.badge { display: inline-block; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); font-size: .78rem; color: var(--muted); }
-
-/* --------------------------------------------------
-   Pagination
--------------------------------------------------- */
-.pagination { display: flex; gap: 6px; margin-top: 18px; }
-.page-btn { padding: 8px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
-.page-btn[aria-current="page"], .page-btn.active { background: var(--accent); color: #fff; border-color: transparent; }
-
-/* --------------------------------------------------
-   Search page (search.html)
--------------------------------------------------- */
-.searchbar { display: flex; gap: 8px; align-items: center; margin: 8px 0 16px; }
-.searchbar input[type="search"] { flex: 1; height: 42px; border: 1px solid var(--border); border-radius: 10px; padding: 0 12px; background: var(--bg); }
-.search-result { padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); margin-bottom: 10px; }
-.search-result h3 { margin: 0 0 6px; font-size: 1rem; }
-.search-result p { margin: 0; color: var(--muted); }
-
-/* --------------------------------------------------
-   TOC (if you render one in content)
--------------------------------------------------- */
-.toc { position: sticky; top: 78px; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
-.toc ul { list-style: none; padding: 0; margin: 0; }
-.toc a { display: block; padding: 6px 8px; border-radius: 8px; color: var(--fg); }
-.toc a:hover { background: color-mix(in oklab, var(--surface) 90%, transparent); text-decoration: none; }
-
-/* --------------------------------------------------
-   Footer
--------------------------------------------------- */
-.site-footer { border-top: 1px solid var(--border); background: color-mix(in oklab, var(--bg) 96%, transparent); margin-top: 30px; }
-.site-footer .container { display: grid; gap: 8px; padding-top: 18px; padding-bottom: 30px; color: var(--muted); }
-
-/* --------------------------------------------------
-   Ad containers (non-intrusive visuals only)
--------------------------------------------------- */
-.ad-box { display: block; background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius); padding: 10px; margin: 14px 0; }
-.ad-box > .ad-label { display: inline-block; font-size: .75rem; color: var(--muted); margin-bottom: 6px; }
-
-/* --------------------------------------------------
-   Utilities
--------------------------------------------------- */
-.grid { display: grid; gap: 14px; }
-.grid.cols-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
-.grid.cols-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
-.grid.cols-4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
-@media (max-width: 980px){ .grid.cols-4 { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-@media (max-width: 620px){ .grid.cols-3, .grid.cols-2, .grid.cols-4 { grid-template-columns: 1fr; } }
-
-.btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius: 10px; background: var(--accent); color: #fff; border:1px solid transparent; box-shadow: var(--shadow); }
-.btn:hover { filter: brightness(.98); text-decoration: none; }
-.btn.ghost { background: var(--surface); color: var(--fg); border-color: var(--border); }
-
-/* --------------------------------------------------
-   Print (clean output for guides)
--------------------------------------------------- */
-@media print {
-  .site-header, .site-footer, .ad-box, .toc, .pagination, .searchbar { display:none !important; }
-  .container { max-width: none; padding: 0; }
-  a { text-decoration: none; color: #000; }
-}
-
-/* === Mobile drawer === */
+/* === 모바일 드로어 확장 (왼쪽에서 슬라이드) === */
 .mobile-only { display: none; }
-@media (max-width: 860px) { .mobile-only { display: inline-grid; } }
+@media (max-width: 980px) { .mobile-only { display: inline-grid; } }
 
-.mobile-drawer {
-  position: fixed; inset: 0 0 0 auto; width: 86%;
-  background: var(--bg); border-left: 1px solid var(--border);
-  transform: translateX(100%); transition: transform .2s ease;
-  z-index: 80;
+.mobile-drawer { position: fixed; inset: 0; display: grid; grid-template-columns: 86% 14%; z-index: 90; }
+.mobile-drawer[hidden] { display: none; }
+.mobile-drawer::after { content:""; display:block; background: rgba(0,0,0,.35); }
+.mobile-drawer__inner {
+  background: var(--bg); border-right: 1px solid var(--border);
+  padding: 14px; overflow: auto;
 }
-.mobile-drawer.open { transform: translateX(0); }
-.mobile-drawer__inner { padding: 18px; display: grid; gap: 10px; }
-.mobile-drawer__brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--fg); }
-.mobile-drawer a { padding: 10px 8px; border-radius: 10px; color: var(--fg); }
-.mobile-drawer a:hover { background: var(--surface); text-decoration: none; }
-.mobile-drawer hr { border: 0; height: 1px; background: var(--border); margin: 10px 0; }
+.drawer-head { display:flex; align-items:center; justify-content: space-between; margin-bottom: 6px; }
+.brand-mini { font-weight:700; }
 
-/* Drawer backdrop */
-.mobile-drawer::before {
-  content: ""; position: fixed; inset: 0; background: rgba(0,0,0,.35); backdrop-filter: blur(1px);
-  opacity: 0; pointer-events: none; transition: opacity .2s ease;
-}
-.mobile-drawer.open::before { opacity: 1; pointer-events: auto; }
+/* === 아코디언(모바일 메뉴) === */
+.acc { border: 1px solid var(--border); border-radius: 10px; background: var(--surface); margin: 8px 0; }
+.acc__summary { cursor: pointer; padding: 10px 12px; }
+.acc__list { list-style:none; margin: 0; padding: 0 0 8px 0; }
+.acc__list li a { display:block; padding:8px 12px; border-radius:8px; color:var(--fg); }
+.acc__list li a:hover { background: var(--chip-bg); text-decoration:none; }
+
+/* 공통 버튼/아이콘 */
+.icon-btn { display:inline-grid; place-items:center; width:36px; height:36px; border-radius:10px; border:1px solid var(--border); background: var(--surface); }
+.icon-btn:focus-visible { outline:2px solid var(--accent-2); outline-offset:2px; }
+.btn { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:10px; background:var(--accent); color:#fff; border:1px solid transparent; }
+.btn.ghost { background: var(--surface); color:var(--fg); border-color: var(--border); }
