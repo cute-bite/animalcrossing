@@ -1,126 +1,191 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ page.title }} | {{ site.title }}</title>
-  <meta name="description" content="{{ page.description | default: site.description }}">
-  <link rel="icon" href="{{ '/assets/img/leaf.svg' | relative_url }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
-  <!-- AdSense (YOUR-ADSENSE-CLIENT-ID/Slot 교체) -->
+  <meta name="description" content="{{ page.description | default: site.description }}" />
+  <link rel="icon" href="{{ '/assets/img/leaf.svg' | relative_url }}" type="image/svg+xml" />
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=YOUR-ADSENSE-CLIENT-ID" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<!-- ✅ 헤더: 1개만 유지 -->
-<header class="site-header">
-  <div class="container">
-    <a href="{{ site.baseurl }}/" class="brand">
-      <img src="{{ site.baseurl }}/assets/img/leaf.svg" alt="" />
-      <span>{{ site.title }}</span>
-    </a>
+  <!-- 상단 헤더(로고 + 소셜) -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="{{ site.baseurl }}/" class="brand">
+        <img src="{{ '/assets/img/leaf.svg' | relative_url }}" alt="" width="22" height="22" />
+        <span>{{ site.title }}</span>
+      </a>
 
-    <!-- 데스크톱 내비 (모바일에서는 CSS로 숨김) -->
-    <nav class="site-nav">
-      <a href="{{ site.baseurl }}/guide/">가이드</a>
-      <a href="{{ site.baseurl }}/items/">도감</a>
-      <a href="{{ site.baseurl }}/events/">이벤트</a>
-      <a href="{{ site.baseurl }}/search.html">검색</a>
-    </nav>
+      <!-- 데스크톱 소셜 -->
+      <nav class="social-nav">
+        <a href="https://discord.gg/" target="_blank" rel="noopener">Discord</a>
+        <a href="https://twitter.com/" target="_blank" rel="noopener">Twitter</a>
+        <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://facebook.com/" target="_blank" rel="noopener">Facebook</a>
+      </nav>
 
-    <!-- 모바일 햄버거 버튼 -->
-    <button id="menuBtn" class="icon-btn mobile-only" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileDrawer">☰</button>
-  </div>
-</header>
-
-<!-- ✅ 모바일 드로어: 헤더 바깥에 1개 -->
-<nav id="mobileDrawer" class="mobile-drawer" hidden>
-  <div class="mobile-drawer__inner">
-    <a href="{{ site.baseurl }}/" class="mobile-drawer__brand">
-      <img src="{{ site.baseurl }}/assets/img/leaf.svg" alt="" width="20" height="20">
-      <span>{{ site.title }}</span>
-    </a>
-    <a href="{{ site.baseurl }}/guide/">가이드</a>
-    <a href="{{ site.baseurl }}/items/">도감</a>
-    <a href="{{ site.baseurl }}/events/">이벤트</a>
-    <a href="{{ site.baseurl }}/search.html">검색</a>
-    <hr>
-    <a href="{{ site.baseurl }}/privacy.html">개인정보 처리방침</a>
-    <a href="{{ site.baseurl }}/terms.html">이용약관</a>
-    <a href="{{ site.baseurl }}/contact.html">문의</a>
-  </div>
-</nav>
-
-<div class="container grid">
-  <aside class="sidebar">
-    <div class="box">
-      <strong>빠른 이동</strong>
-      <ul>
-        <li><a href="{{ '/guide/beginner/' | relative_url }}">초보자 가이드</a></li>
-        <li><a href="{{ '/items/fish/' | relative_url }}">물고기 도감</a></li>
-        <li><a href="{{ '/events/seasonal/' | relative_url }}">시즌 이벤트</a></li>
-      </ul>
+      <!-- 모바일 햄버거 -->
+      <button id="menuBtn" class="icon-btn mobile-only" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileDrawer">☰</button>
     </div>
-    <div class="box">
-      <strong>태그</strong>
-      <div class="chips">
-        <span class="chip">#초보자</span><span class="chip">#벨벌이</span><span class="chip">#도감</span><span class="chip">#이벤트</span>
-      </div>
-    </div>
-  </aside>
+  </header>
 
-  <main class="content">
-    <article class="doc">
-      <div class="editbar">
-        {% assign repo_url = site.github.repository_url | default: 'https://github.com/YOURNAME/YOURREPO' %}
-        <a class="btn" href="{{ repo_url }}/edit/main{{ page.path }}" target="_blank" rel="noopener">✏️ Edit on GitHub</a>
-        <a class="btn" href="{{ repo_url }}/issues/new?title=%5B%EA%B3%A0%EC%B0%A8%2F%EC%88%98%EC%A0%95%20%EC%A0%9C%EC%95%88%5D%20{{ page.title | uri_escape }}" target="_blank" rel="noopener">🐞 이슈 제보</a>
-      </div>
+  <div class="layout">
+    <!-- ✅ 좌측 풀메뉴(데스크톱에서 고정) -->
+    <aside class="sidebar">
+      <nav class="side-nav" aria-label="사이드 메뉴">
+        <div class="group">
+          <h4>기본</h4>
+          <ul>
+            <li><a href="{{ site.baseurl }}/">메인 페이지</a></li>
+            <li><a href="{{ site.baseurl }}/contents/">목차</a></li>
+            <li><a href="{{ site.baseurl }}/random/">임의 문서</a></li>
+            <li><a href="{{ site.baseurl }}/random-item/">임의 아이템</a></li>
+            <li><a href="{{ site.baseurl }}/recent-changes/">최근 변경</a></li>
+            <li><a href="{{ site.baseurl }}/api/">API</a></li>
+            <li><a href="{{ site.baseurl }}/policy/">정책</a></li>
+            <li><a href="{{ site.baseurl }}/help/">도움말</a></li>
+          </ul>
+        </div>
 
-      {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
-      <div id="toc" class="toc"></div>
+        <div class="group">
+          <h4>게임</h4>
+          <ul>
+            <li><a href="{{ site.baseurl }}/new-horizons/">뉴 호라이즌</a></li>
+            <li><a href="{{ site.baseurl }}/updates/">업데이트</a></li>
+            <li><a href="{{ site.baseurl }}/happy-home-paradise/">해피 홈 파라다이스</a></li>
+            <li><a href="{{ site.baseurl }}/mystery-islands/">미스터리 섬</a></li>
+            <li><a href="{{ site.baseurl }}/boat-tours/">보트 투어</a></li>
+            <li><a href="{{ site.baseurl }}/nook-miles/">너크 마일</a></li>
+            <li><a href="{{ site.baseurl }}/the-roost/">비둘기 다방</a></li>
+          </ul>
+        </div>
 
+        <div class="group">
+          <h4>주민/생물</h4>
+          <ul>
+            <li><a href="{{ site.baseurl }}/villagers/">주민</a></li>
+            <li><a href="{{ site.baseurl }}/fish/">물고기</a></li>
+            <li><a href="{{ site.baseurl }}/bugs/">곤충</a></li>
+            <li><a href="{{ site.baseurl }}/sea-creatures/">해산물</a></li>
+            <li><a href="{{ site.baseurl }}/fossils/">화석</a></li>
+            <li><a href="{{ site.baseurl }}/art/">미술품/위작</a></li>
+            <li><a href="{{ site.baseurl }}/gyroids/">자로이드</a></li>
+          </ul>
+        </div>
+
+        <div class="group">
+          <h4>아이템</h4>
+          <ul>
+            <li><a href="{{ site.baseurl }}/furniture/">가구</a></li>
+            <li><a href="{{ site.baseurl }}/wallpaper/">벽지</a></li>
+            <li><a href="{{ site.baseurl }}/flooring/">바닥재</a></li>
+            <li><a href="{{ site.baseurl }}/clothing/">의류</a></li>
+            <li><a href="{{ site.baseurl }}/tools/">도구</a></li>
+            <li><a href="{{ site.baseurl }}/music/">음악</a></li>
+            <li><a href="{{ site.baseurl }}/recipes/">DIY/요리 레시피</a></li>
+          </ul>
+        </div>
+
+        <div class="group">
+          <h4>커뮤니티</h4>
+          <ul>
+            <li><a href="{{ site.baseurl }}/staff-noticeboard/">스태프 공지판</a></li>
+            <li><a href="{{ site.baseurl }}/proposals/">제안</a></li>
+            <li><a href="{{ site.baseurl }}/users/">사용자 & 스태프</a></li>
+          </ul>
+        </div>
+
+        <div class="group">
+          <h4>유지보수</h4>
+          <ul>
+            <li><a href="{{ site.baseurl }}/tasks-board/">작업 보드</a></li>
+            <li><a href="{{ site.baseurl }}/maintenance/">위키 유지보수</a></li>
+            <li><a href="{{ site.baseurl }}/image-requests/">이미지 요청</a></li>
+            <li><a href="{{ site.baseurl }}/images-needed/">필요 이미지</a></li>
+            <li><a href="{{ site.baseurl }}/under-construction/">공사중</a></li>
+            <li><a href="{{ site.baseurl }}/cleanup/">정리 필요</a></li>
+            <li><a href="{{ site.baseurl }}/stubs/">토막글</a></li>
+          </ul>
+        </div>
+
+        <div class="group">
+          <h4>도구</h4>
+          <ul>
+            <li><a href="{{ site.baseurl }}/what-links-here/">여기를 가리키는 문서</a></li>
+            <li><a href="{{ site.baseurl }}/related-changes/">연관 변경</a></li>
+            <li><a href="{{ site.baseurl }}/printable/">인쇄용 버전</a></li>
+            <li><a href="{{ site.baseurl }}/permanent-link/">고유 링크</a></li>
+            <li><a href="{{ site.baseurl }}/page-info/">문서 정보</a></li>
+            <li><a href="{{ site.baseurl }}/page-logs/">문서 로그</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ✅ 본문 -->
+    <main class="content">
       {{ content }}
-
       {% include attribution.html %}
+    </main>
+  </div>
 
-      <div class="ad ad-in-article">
-        <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="YOUR-ADSENSE-CLIENT-ID" data-ad-slot="IN-ARTICLE-SLOT"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  <!-- ✅ 모바일 드로어(좌측 메뉴와 동일 항목, 아코디언) -->
+  <nav id="mobileDrawer" class="mobile-drawer" hidden aria-label="모바일 메뉴">
+    <div class="mobile-drawer__inner">
+      <div class="drawer-head">
+        <span class="brand-mini">🍃 {{ site.title }}</span>
+        <button id="drawerClose" class="icon-btn" aria-label="메뉴 닫기">✕</button>
       </div>
 
-      <!-- giscus (값 교체 필요) -->
-      <section id="comments" style="margin-top:24px;">
-        <script src="https://giscus.app/client.js"
-          data-repo="YOURNAME/YOURREPO"
-          data-repo-id="YOUR_REPO_ID"
-          data-category="General"
-          data-category-id="YOUR_CATEGORY_ID"
-          data-mapping="pathname"
-          data-strict="0"
-          data-reactions-enabled="1"
-          data-emit-metadata="0"
-          data-input-position="bottom"
-          data-theme="light"
-          data-lang="ko"
-          crossorigin="anonymous"
-          async>
-        </script>
-      </section>
-    </article>
-  </main>
-</div>
+      <!-- 아코디언 섹션 -->
+      <div class="accordion">
+        {% assign groups = "
+          기본|/|메인 페이지,/contents/|목차,/random/|임의 문서,/random-item/|임의 아이템,/recent-changes/|최근 변경,/api/|API,/policy/|정책,/help/|도움말;
+          게임|/new-horizons/|뉴 호라이즌,/updates/|업데이트,/happy-home-paradise/|해피 홈 파라다이스,/mystery-islands/|미스터리 섬,/boat-tours/|보트 투어,/nook-miles/|너크 마일,/the-roost/|비둘기 다방;
+          주민/생물|/villagers/|주민,/fish/|물고기,/bugs/|곤충,/sea-creatures/|해산물,/fossils/|화석,/art/|미술품/위작,/gyroids/|자로이드;
+          아이템|/furniture/|가구,/wallpaper/|벽지,/flooring/|바닥재,/clothing/|의류,/tools/|도구,/music/|음악,/recipes/|DIY/요리 레시피;
+          커뮤니티|/staff-noticeboard/|스태프 공지판,/proposals/|제안,/users/|사용자 & 스태프;
+          유지보수|/tasks-board/|작업 보드,/maintenance/|위키 유지보수,/image-requests/|이미지 요청,/images-needed/|필요 이미지,/under-construction/|공사중,/cleanup/|정리 필요,/stubs/|토막글;
+          도구|/what-links-here/|여기를 가리키는 문서,/related-changes/|연관 변경,/printable/|인쇄용 버전,/permanent-link/|고유 링크,/page-info/|문서 정보,/page-logs/|문서 로그
+        " | split: ";" %}
 
-<footer class="site-footer">
-  <div class="container">
-    <small>© {{ site.time | date: "%Y" }} · 텍스트는 CC BY-SA 4.0 ·
-      <a href="{{ '/privacy.html' | relative_url }}">Privacy</a> ·
-      <a href="{{ '/terms.html' | relative_url }}">Terms</a> ·
-      <a href="{{ '/contact.html' | relative_url }}">Contact</a>
-    </small>
-  </div>
-</footer>
+        {% for grp in groups %}
+          {% assign parts = grp | split: "|" %}
+          {% assign title = parts[0] | strip %}
+          {% assign links = parts[1] | split: "," %}
+          <details class="acc">
+            <summary class="acc__summary">{{ title }}</summary>
+            <ul class="acc__list">
+              {% for l in links %}
+                {% assign pair = l | split: "|" %}
+                {% assign href = pair[0] | strip %}
+                {% assign label = pair[1] | strip %}
+                {% if href != "" and label != "" %}
+                <li><a href="{{ site.baseurl }}{{ href }}">{{ label }}</a></li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </details>
+        {% endfor %}
+      </div>
 
-<script src="{{ '/assets/js/toc-and-theme.js' | relative_url }}"></script>
+      <button id="closeAll" class="btn ghost" type="button" style="margin-top:10px;">모두 닫기</button>
+    </div>
+  </nav>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© {{ site.time | date: "%Y" }} · 텍스트는 CC BY-SA 4.0 ·
+        <a href="{{ '/privacy.html' | relative_url }}">Privacy</a> ·
+        <a href="{{ '/terms.html' | relative_url }}">Terms</a> ·
+        <a href="{{ '/contact.html' | relative_url }}">Contact</a>
+      </small>
+    </div>
+  </footer>
+
+  <script src="{{ '/assets/js/toc-and-theme.js' | relative_url }}"></script>
 </body>
 </html>
