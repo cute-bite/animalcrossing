@@ -1,18 +1,11 @@
-title: ACNH Korean Fan Wiki
-description: 동물의 숲: 뉴 호라이즌 한국어 팬 위키 (텍스트 중심, CC BY-SA)
-# Project Pages 설정
-url: https://cute-bite.github.io
-baseurl: /animalcrossing
+title: "Animal Crossing KR Wiki"
+description: "한국어 동물의 숲: 뉴 호라이즌 팬 위키"
+url: "https://cute-bite.github.io"
+baseurl: "/animalcrossing"
 
-theme: minima
+theme: null
+plugins: []
+
 markdown: kramdown
 kramdown:
   input: GFM
-collections:
-  guide:
-    output: true
-  items:
-    output: true
-  events:
-    output: true
-permalink: /:collection/:name/
