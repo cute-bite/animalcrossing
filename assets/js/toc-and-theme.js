@@ -12,3 +12,32 @@
     btn.textContent=document.documentElement.classList.contains('theme-dark')?'☀️':'🌙';
   });}
 })();
+
+// === 모바일 드로어 토글 ===
+(function(){
+  const btn = document.getElementById('menuBtn');
+  const drawer = document.getElementById('mobileDrawer');
+  const closeBtn = document.getElementById('drawerClose');
+  if (!btn || !drawer) return;
+
+  function open(){ drawer.hidden = false; btn.setAttribute('aria-expanded','true'); }
+  function close(){ drawer.hidden = true; btn.setAttribute('aria-expanded','false'); }
+
+  btn.addEventListener('click', ()=> drawer.hidden ? open() : close());
+  closeBtn?.addEventListener('click', close);
+  document.addEventListener('keydown', (e)=> { if(e.key === 'Escape') close(); });
+  // 배경 영역 클릭 시 닫힘(오른쪽 14% 영역)
+  drawer.addEventListener('click', (e)=> {
+    const bounds = drawer.getBoundingClientRect();
+    if (e.clientX > bounds.left + bounds.width*0.86) close();
+  });
+})();
+
+// === 아코디언: "모두 닫기"
+(function(){
+  const closeAll = document.getElementById('closeAll');
+  if (!closeAll) return;
+  closeAll.addEventListener('click', ()=>{
+    document.querySelectorAll('#mobileDrawer details[open]').forEach(d=> d.open = false);
+  });
+})();
