@@ -1,7 +1,9 @@
 title: ACNH Korean Fan Wiki
 description: 동물의 숲: 뉴 호라이즌 한국어 팬 위키 (텍스트 중심, CC BY-SA)
-baseurl: ""
-url: ""
+# Project Pages 설정
+url: https://cute-bite.github.io
+baseurl: /animalcrossing
+
 theme: minima
 markdown: kramdown
 kramdown:
@@ -14,4 +16,3 @@ collections:
   events:
     output: true
 permalink: /:collection/:name/
-# GitHub Pages가 제공하는 site.github.* 값을 사용 (repository_url 등)
