@@ -26,6 +26,47 @@
       <a href="{{ site.baseurl }}/search.html">검색</a>
     </nav>
   </div>
+
+
+  <header class="site-header">
+  <div class="container">
+    <a href="{{ site.baseurl }}/" class="brand">
+      <img src="{{ site.baseurl }}/assets/img/leaf.svg" alt="" />
+      <span>{{ site.title }}</span>
+    </a>
+
+    <!-- 데스크톱 내비 -->
+    <nav class="site-nav">
+      <a href="{{ site.baseurl }}/guide/">가이드</a>
+      <a href="{{ site.baseurl }}/items/">도감</a>
+      <a href="{{ site.baseurl }}/events/">이벤트</a>
+      <a href="{{ site.baseurl }}/search.html">검색</a>
+    </nav>
+
+    <!-- 모바일 햄버거 버튼 -->
+    <button id="menuBtn" class="icon-btn mobile-only" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileDrawer">☰</button>
+  </div>
+</header>
+
+<!-- 모바일 드로어 -->
+<nav id="mobileDrawer" class="mobile-drawer" hidden>
+  <div class="mobile-drawer__inner">
+    <a href="{{ site.baseurl }}/" class="mobile-drawer__brand">
+      <img src="{{ site.baseurl }}/assets/img/leaf.svg" alt="" width="20" height="20">
+      <span>{{ site.title }}</span>
+    </a>
+    <a href="{{ site.baseurl }}/guide/">가이드</a>
+    <a href="{{ site.baseurl }}/items/">도감</a>
+    <a href="{{ site.baseurl }}/events/">이벤트</a>
+    <a href="{{ site.baseurl }}/search.html">검색</a>
+    <hr>
+    <a href="{{ site.baseurl }}/privacy.html">개인정보 처리방침</a>
+    <a href="{{ site.baseurl }}/terms.html">이용약관</a>
+    <a href="{{ site.baseurl }}/contact.html">문의</a>
+  </div>
+</nav>
+
+
 </header>
 
 
